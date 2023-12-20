@@ -151,6 +151,8 @@ void generate_random_string(char *random_string, int length) {
     static const char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;':,.<>?";
 
     for (int i = 0; i < length; i++) {
+        //Improves the randomness of character guessing
+        srand((unsigned int) time(NULL));
         random_string[i] = charset[rand() % (sizeof(charset) - 1)];
     }
 
