@@ -4,7 +4,7 @@ compile with the following command:
 gcc -Wall -std=c99 cracker.c -o cracker
 
 On linux machines intended to be used in the following syntax:
-cracker \<SHA256 Hash\> \<min len\> \<max len\>
+./cracker \<SHA256 Hash\> \<min len\> \<max len\>
 
 On windows machines intended to be used in the following syntax:
 cracker.exe \<SHA256 Hash\> \<min len\> \<max len\>
