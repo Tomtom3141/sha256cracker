@@ -229,8 +229,8 @@ void* findRandomString(void* data) {
 
 int main(int argc, char *argv[]) {
 	//Ensure proper argument count
-    if (argc != 4) {
-        printf("Usage: %s <SHA256 HASH> <MIN LENGTH> <MAX LENGTH>\n", argv[0]);
+    if (argc != 5) {
+        printf("Usage: %s <SHA256 HASH> <MIN LENGTH> <MAX LENGTH> <CPU CORES>\n", argv[0]);
         return 1;
     }
 
@@ -240,32 +240,28 @@ int main(int argc, char *argv[]) {
     threadData.min_length = atoi(argv[2]);
     threadData.max_length = atoi(argv[3]);
     threadData.found = false;
-
-    //Declare input variables
-    //char *sha256_input = argv[1];
-    int min_length = atoi(argv[2]);
-    int max_length = atoi(argv[3]);
+    int cpucores = atoi(argv[4]);
 
     //Sanitize input
     if (threadData.min_length <= 0 || threadData.max_length <= 0 || threadData.min_length > threadData.max_length || threadData.max_length > MAX_STRING_LENGTH) {
         printf("Invalid input parameters.\n");
         return 1;
     }
-    if (min_length <= 0 || max_length <= 0 || min_length > max_length || max_length > MAX_STRING_LENGTH) {
-        printf("Invalid input parameters.\n");
+    if(cpucores <= 0){
+        printf("Invalid CPU core count.\n");
         return 1;
     }
 
-    pthread_t threads[6]; // You can adjust the number of threads based on your system
+    pthread_t threads[cpucores]; // You can adjust the number of threads based on your system
 	
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < cpucores; ++i) {
         if (pthread_create(&threads[i], NULL, findRandomString, (void*)&threadData) != 0) {
             perror("Error creating thread");
             return 1;
         }
     }
 
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < cpucores; ++i) {
         pthread_join(threads[i], NULL);
     }
 
