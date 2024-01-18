@@ -10,3 +10,5 @@ On windows machines intended to be used in the following syntax:
 cracker.exe \<SHA256 Hash\> \<min len\> \<max len\>
 
 There will be no output until the program has found the hash
+
+There is now a faster version of the program called fastcracker which implements multithreading for many cpu cores
